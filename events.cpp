@@ -64,3 +64,11 @@ struct Menu
     }
 };
 
+struct PokemonParty
+{
+    int size;
+    std::string names[6] = {};
+
+
+};
+

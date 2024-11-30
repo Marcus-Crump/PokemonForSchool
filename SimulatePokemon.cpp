@@ -124,7 +124,10 @@ if (popUp.isOpen() == false) {
         }
     }
     }
-
+    Japanese kana;
+    for (int i = 0; i < 64; i++){
+    kana.printKatakana(i%16,-80+(float(i)*3.5),45,.25);
+    }
     drawRect(-80, 30, 10,10,0xffff00);
     drawRect(80, 30, 10,10,0x00ff00);
     drawRect(-80, -30, 10,10,0x0000ff);

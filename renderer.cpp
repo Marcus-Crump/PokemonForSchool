@@ -73,3 +73,17 @@ void drawLetter(int sprite[][5], int colors[], int rows, int cols, float x0, flo
         y -= px*2;
     }
 }
+
+void drawKatakana(int chara[][6], int rows, int cols, float x0, float y0, float px) {
+    float y = y0;
+    for (int i = 0; i < rows; i++) {
+        float x = x0 - ((cols/2)*px);
+        for (int j = 0; j < cols; j++) {
+            if (chara[i][j] != 0) {
+                drawRect(x, y, px, px, 0x000000);
+            }
+            x += px*2;
+        }
+        y -= px*2;
+    }
+}

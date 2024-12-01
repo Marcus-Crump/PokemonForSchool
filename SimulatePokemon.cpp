@@ -9,6 +9,7 @@ float posy, posx, vely, velx = 0.f;
 float arenaHSx = 95, arenaHSy = 50;
 float pHSx = 2.5, pHSy = 2.5;
 int choice = 0;
+int direction = 3;
 unsigned int color = 0x0ff00f;
 Player satoshi;
 Alphabet letter;
@@ -36,26 +37,23 @@ if (popUp.isOpen() == false) {
         accelx += 1350;
     }
 
-
     accelx -= velx *10.f;
     velx += accelx*dt;
     posx += velx * dt + accelx*dt*dt * .5f;
-    satoshi.setXpos(posx);
 
-
-    if(posx + pHSx > arenaHSx) {
-        posx = arenaHSx - pHSx;
+    if(posx + pHSx + 9*(1.75) > arenaHSx) {
+        posx = arenaHSx - pHSx -9*(1.75);
         velx *= 0;
     }
-    else if(posx - pHSx < -arenaHSx) {
-        posx = -arenaHSx + pHSx;
+    else if(posx - pHSx -2*(1.75)< -arenaHSx) {
+        posx = -arenaHSx + pHSx + 2*(1.75);
         velx *= 0;
     }
-    else if(posy + pHSy > arenaHSy) {
-        posy = arenaHSy - pHSy;
+    else if(posy + pHSy + 1.75 > arenaHSy) {
+        posy = arenaHSy - pHSy - 1.75;
         vely *= 0;
-    }else if(posy - pHSy < -arenaHSy) {
-        posy = -arenaHSy + pHSy;
+    }else if(posy - pHSy - 9.05*(1.75)< -arenaHSy) {
+        posy = -arenaHSy + pHSy + 9.05*(1.75);
         vely *= 0;
     }
     if (isPressed(BUTTON_9)) {
@@ -124,15 +122,17 @@ if (popUp.isOpen() == false) {
         }
     }
     }
-    Japanese kana;
-    for (int i = 0; i < 64; i++){
-    kana.printKatakana(i%16,-80+(float(i)*3.5),45,.25);
-    }
+
     drawRect(-80, 30, 10,10,0xffff00);
     drawRect(80, 30, 10,10,0x00ff00);
     drawRect(-80, -30, 10,10,0x0000ff);
     drawRect(80, -30, 10,10,0xff00ff);
-    satoshi.drawPlayer();
+    satoshi.drawPlayer(posx,posy);
+    Japanese kana;
+    for (int i = 0; i < 44; i++){
+    kana.printKana(i,true,-95+(float(i)*3.75),45,.25);
+    kana.printKana(i,false,-95+(float(i)*3.75),30,.25);
+    }
     if (popUp.isOpen() == true)
     {
         popUp.drawMenu(choice);

@@ -74,7 +74,7 @@ void drawLetter(int sprite[][5], int colors[], int rows, int cols, float x0, flo
     }
 }
 
-void drawKatakana(int chara[][6], int rows, int cols, float x0, float y0, float px) {
+void drawKana(int chara[][7], int rows, int cols, float x0, float y0, float px) {
     float y = y0;
     for (int i = 0; i < rows; i++) {
         float x = x0 - ((cols/2)*px);

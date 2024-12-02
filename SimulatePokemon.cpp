@@ -9,6 +9,8 @@ float posy, posx, vely, velx = 0.f;
 float arenaHSx = 95, arenaHSy = 50;
 float pHSx = 2.5, pHSy = 2.5;
 int choice = 0;
+int timer = 0;
+int cycle = 0;
 int direction = 3;
 unsigned int color = 0x0ff00f;
 Player satoshi;
@@ -21,9 +23,11 @@ simulateGame(Input* input, float dt) {
 if (popUp.isOpen() == false) {
     if (isDown(BUTTON_8)) {
         accely += 1350;
+        timer++;
     }
     if (isDown(BUTTON_5)) {
         accely -= 1350;
+        timer++;
     }
     accely -= vely * 10.f;
     vely += accely*dt;
@@ -32,10 +36,22 @@ if (popUp.isOpen() == false) {
 
     if (isDown(BUTTON_4)) {
         accelx -= 1350;
+        timer++;
     }
     if (isDown(BUTTON_6)) {
         accelx += 1350;
+        timer++;
     }
+
+    if (timer > 100){
+        cycle++;
+        timer = 0;
+      if (cycle > 3) {
+        cycle = 0;
+    }  
+    }
+    
+    
 
     accelx -= velx *10.f;
     velx += accelx*dt;
@@ -67,6 +83,9 @@ if (popUp.isOpen() == false) {
         {
             popUp.toggleMenu();
         }
+    }
+    if (released(BUTTON_8) || released(BUTTON_5) || released(BUTTON_4) || released(BUTTON_6)) {
+        cycle = 0;
     }
 
 }else {
@@ -122,14 +141,14 @@ if (popUp.isOpen() == false) {
         }
     }
     }
-
     drawRect(-80, 30, 10,10,0xffff00);
     drawRect(80, 30, 10,10,0x00ff00);
     drawRect(-80, -30, 10,10,0x0000ff);
     drawRect(80, -30, 10,10,0xff00ff);
-    satoshi.drawPlayer(posx,posy);
+    satoshi.drawPlayer(posx,posy,cycle);
     Japanese kana;
-    for (int i = 0; i < 44; i++){
+    
+    for (int i = 0; i < 46; i++){
     kana.printKana(i,true,-95+(float(i)*3.75),45,.25);
     kana.printKana(i,false,-95+(float(i)*3.75),30,.25);
     }

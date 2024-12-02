@@ -46,11 +46,14 @@ struct Menu
 
     void drawMenu(int selected) {
 
-        std::string titles[] ={"pokedex","pokemon","bag","player","save","settings","close"};
+        // int titles[][4] ={{13,6,45},{}};
+        std::string titles[7] = {"pokedex","pokemon","bag","player","save","settings","exit"};
+        int kanaType [] = {true,false,false,false,false,true,true};
         drawRect(loc[0], loc[1], (width/2)+1, (length/2)+1, 0x050047);
         drawRect(loc[0], loc[1], (width/2)+.5, (length/2)+.5, 0x7bbfff);
         drawRect(loc[0], loc[1], (width/2)-1, (length/2)-1, 0xa6baca);
         int counter = 0;
+        Japanese printer;
         for (int i = 0; i < 7; i++) {
             if (selected == counter) {
         drawRect(loc[0], (loc[1]+30)-(i*10), (cellLen/2)+1, (cellHigh/2)+1, 0xf0ff00);
@@ -59,6 +62,7 @@ struct Menu
         drawRect(loc[0], (loc[1]+30)-(i*10), (cellLen/2)+1, (cellHigh/2)+1, 0xa6baca);
             }
         Text line(titles[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
+        // printer.printKana();
         counter++;
         }
     }

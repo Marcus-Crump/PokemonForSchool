@@ -34,7 +34,6 @@ if (popUp.isOpen() == false) {
     accely -= vely * 10.f;
     vely += accely*dt;
     posy += vely * dt + accely *dt *dt * .5f;
-    satoshi.setYpos(posy);
 
     if (isDown(BUTTON_4)) {
         accelx -= 1300;
@@ -161,10 +160,14 @@ if (popUp.isOpen() == false) {
     drawRect(80, -30, 10,10,0xff00ff);
     satoshi.drawPlayer(posx,posy,cycle,direction);
     Japanese kana;
-
-    for (int i = 0; i < 46; i++){
-    kana.printKana(i,true,-95+(float(i)*3.75),45,.25);
-    kana.printKana(i,false,-95+(float(i)*3.75),30,.25);
+    int y = 45;
+    int x = -95;
+    for (int i = 0; i < 64; i++){
+    kana.printKana(i,true,-95+(float((i))*3.75),y,.25);
+    if(i < 46) {
+        kana.printKana(i,false,-95+(float((i))*3.75),y-10,.25);
+    }
+    
     }
     if (popUp.isOpen() == true)
     {

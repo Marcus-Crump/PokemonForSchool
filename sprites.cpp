@@ -4,7 +4,7 @@ struct Player
 {
     public:float xPOS;
     public:float yPOS;
-    float pxSize = .5;
+    float pxSize = .001;
     public:int colors[5] ={0,0xff2e00,0xffa759,0x000000,0xffffff};
     public:int sprite [3][4][16][14] = {
         {
@@ -231,7 +231,6 @@ struct Player
     }
     };
 
-    public:int sideSprite[4][16][14] ;
     void drawPlayer(int posX, int posY, int cycle,int dir){
     yPOS = posY + ((16 / 2)*pxSize) - (pxSize/2);
     if (dir == 1) {
@@ -240,11 +239,11 @@ struct Player
         for(int j = 0; j < 14; j++) {
             if(sprite[1][cycle][i][j] != 0) {
                 int color = sprite[1][cycle][i][j];
-                drawRect(xPOS+(20), yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
+                drawRect(xPOS+(10), yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
             }
-            xPOS -= pxSize*3.;
+            xPOS -= pxSize*1000.;
         }
-        yPOS -= pxSize*3.;
+        yPOS -= pxSize*1000.;
         }
         }else if (dir == 3) {
             for(int i = 0; i < 16; i++) {
@@ -254,9 +253,9 @@ struct Player
                         int color = sprite[1][cycle][i][j];
                         drawRect(xPOS, yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
                     }
-                    xPOS += pxSize*3.;
+                    xPOS += pxSize*1000.;
                 }
-                yPOS -= pxSize*3.;
+                yPOS -= pxSize*1000.;
                 }
     }else {
         for(int i = 0; i < 16; i++) {
@@ -266,26 +265,13 @@ struct Player
                     int color = sprite[dir][cycle][i][j];
                     drawRect(xPOS, yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
                 }
-                xPOS += pxSize*3.;
+                xPOS += pxSize*1000.;
             }
-            yPOS -= pxSize*3.;
+            yPOS -= pxSize*1000.;
             }
     }
 
 }
-
-    public:void setXpos(float x) {
-        xPOS = x;
-    }
-    public:void setYpos(float y) {
-        yPOS = y;
-    }
-    float getX() {
-        return xPOS;
-    }
-    float getY() {
-        return yPOS;
-    }
 };
 
 struct Alphabet
@@ -620,7 +606,7 @@ struct Alphabet
 
 struct Japanese
 {
-    int hiragana[46][6][7] = {
+    int hiragana[64][6][7] = {
         {},
         {
             {0,0,0,1,0,0,0},//あ
@@ -670,13 +656,29 @@ struct Japanese
             {0,1,0,0,1,0,0},
             {1,0,0,1,0,0,0},
         },
-    {
-            {0,0,0,1,1,1,0},//き
-            {0,1,1,1,0,0,0},
-            {0,0,0,1,1,1,0},
-            {1,1,1,1,0,0,0},
+        {
+            {0,1,0,0,1,0,1},//が
+            {1,1,1,0,0,0,0},
+            {0,1,0,1,0,1,0},
+            {0,1,0,1,0,1,0},
+            {1,0,0,1,0,1,0},
             {0,0,1,0,0,0,0},
-            {0,0,0,1,1,0,0}
+        },
+        {
+            {0,0,1,0,0,0,0},//き
+            {0,1,1,1,1,1,0},
+            {0,0,0,1,0,0,0},
+            {0,0,1,1,1,1,0},
+            {1,0,0,0,0,0,0},
+            {0,1,1,1,0,0,0}
+        },
+        {
+            {0,1,0,0,0,0,1},//ぎ
+            {1,1,1,1,1,0,0},
+            {0,0,1,0,0,0,1},
+            {0,1,1,1,1,0,0},
+            {1,0,0,0,0,0,0},
+            {0,1,1,1,0,0,0}
         },
         {
             {0,0,0,0,1,0,0},//く
@@ -687,12 +689,28 @@ struct Japanese
             {0,0,0,0,0,1,0}
         },
         {
+            {0,0,0,1,0,1,0},//ぐ
+            {0,0,1,0,0,0,0},
+            {0,1,0,0,0,1,0},
+            {0,0,1,0,0,0,0},
+            {0,0,0,1,0,0,0},
+            {0,0,0,0,1,0,0}
+        },
+        {
             {0,1,0,0,0,1,0},//け
             {1,0,0,1,1,1,1},
             {1,0,0,0,0,1,0},
             {1,0,0,0,0,1,0},
             {1,0,1,0,0,1,0},
             {0,1,0,0,1,0,0}
+        },
+        {
+            {0,1,0,1,0,0,1},//げ
+            {1,0,1,1,1,0,0},
+            {1,0,0,1,0,0,1},
+            {1,0,0,1,0,0,0},
+            {1,0,0,1,0,0,0},
+            {0,0,1,0,0,0,0}
         },
         {
             {1,1,1,1,1,1,1},//こ
@@ -703,6 +721,14 @@ struct Japanese
             {0,1,1,1,1,1,1}
         },
         {
+            {0,0,0,0,0,0,1},//ご
+            {1,1,1,1,1,0,0},
+            {0,0,0,1,0,0,1},
+            {0,1,0,0,0,0,0},
+            {1,0,0,0,0,0,0},
+            {0,1,1,1,1,0,0}
+        },
+        {
             {0,0,1,0,0,0,0},//さ
             {0,1,1,1,1,1,1},
             {0,0,0,0,1,0,0},
@@ -711,9 +737,25 @@ struct Japanese
             {0,0,0,1,1,1,0}
         },
         {
+            {0,1,0,0,0,0,1},//ざ
+            {1,1,1,1,1,0,0},
+            {0,0,1,0,0,0,1},
+            {0,0,0,0,0,0,0},
+            {0,1,0,0,0,0,0},
+            {0,0,1,1,1,0,0}
+        },
+        {
             {1,0,0,0,0,0,0},//し
             {1,0,0,0,0,0,0},
             {1,0,0,0,0,0,0},
+            {1,0,0,0,0,1,0},
+            {0,1,0,0,1,0,0},
+            {0,0,1,1,0,0,0}
+        },
+        {
+            {1,0,1,0,0,0,0},//じ
+            {1,0,0,0,0,0,0},
+            {1,0,1,0,0,0,0},
             {1,0,0,0,0,1,0},
             {0,1,0,0,1,0,0},
             {0,0,1,1,0,0,0}
@@ -727,9 +769,9 @@ struct Japanese
             {0,0,0,1,0,0,0}
         },
         {
-            {0,0,1,0,1,0,1},//ず
-            {1,1,1,1,0,1,0},
-            {0,1,1,0,0,0,0},
+            {0,0,1,0,0,1,0},//ず
+            {1,1,1,1,0,0,0},
+            {0,1,1,0,0,1,0},
             {1,0,1,0,0,0,0},
             {0,1,1,0,0,0,0},
             {0,0,1,0,0,0,0}
@@ -743,12 +785,28 @@ struct Japanese
             {0,0,1,1,1,1,1}
         },
         {
+            {0,1,0,1,0,0,1},//ぜ
+            {1,1,1,1,1,0,0},
+            {0,1,0,1,0,0,1},
+            {0,1,0,1,0,0,0},
+            {0,1,0,0,0,0,0},
+            {0,0,1,1,1,1,1}
+        },
+        {
             {0,1,1,1,1,1,0},//そ
             {0,0,0,0,1,0,0},
             {0,1,1,1,1,1,0},
             {1,0,0,1,0,0,0},
             {0,0,0,1,0,0,0},
             {0,0,0,0,1,1,0}
+        },
+        {
+            {0,1,1,1,1,0,1},//ぞ
+            {0,0,0,1,0,0,0},
+            {0,1,1,1,1,0,1},
+            {1,0,1,0,0,0,0},
+            {0,0,1,0,0,0,0},
+            {0,0,0,1,1,0,0}
         },
         {
             {0,0,1,0,0,0,0},//た
@@ -759,15 +817,39 @@ struct Japanese
             {1,0,0,1,1,1,0}
         },
         {
+            {0,0,1,0,0,0,1},//だ
+            {1,1,1,1,1,0,0},
+            {0,0,1,0,0,0,1},
+            {0,1,0,1,1,0,0},
+            {0,1,0,0,0,0,0},
+            {1,0,0,1,1,1,0}
+        },
+        {
             {0,0,0,1,0,0,0},//ち
             {1,1,1,1,1,1,1},
             {0,1,0,0,0,0,0},
-            {1,1,1,1,1,1,1},
+            {1,1,1,1,1,0,0},
+            {0,0,0,0,0,1,0},
+            {0,1,1,1,1,0,0}
+        },
+        {
+            {0,0,0,1,0,0,1},//ぢ
+            {1,1,1,1,1,0,0},
+            {0,1,0,0,0,0,1},
+            {1,1,1,1,1,0,0},
             {0,0,0,0,0,1,0},
             {0,1,1,1,1,0,0}
         },
         {
             {0,0,0,0,0,0,0},//つ
+            {0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,0},
+            {0,0,0,0,0,0,1},
+            {0,0,0,0,0,0,1},
+            {0,1,1,1,1,1,0}
+        },
+        {
+            {0,0,0,0,1,0,1},//づ
             {0,0,0,0,0,0,0},
             {1,1,1,1,1,1,0},
             {0,0,0,0,0,0,1},
@@ -783,12 +865,29 @@ struct Japanese
             {0,0,0,1,1,1,0}
         },
         {
+            
+            {0,0,0,0,1,0,1},//で
+            {0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1},
+            {0,0,1,0,0,0,0},
+            {0,0,1,0,0,0,0},
+            {0,0,0,1,1,1,0}
+        },
+        {
             {0,0,1,0,0,0,0},//と
             {0,0,1,0,1,1,0},
             {0,0,1,1,0,0,0},
             {0,1,0,0,0,0,0},
-            {0,1,0,0,1,0,0},
+            {0,1,0,0,0,0,0},
             {0,0,1,1,1,1,0}
+        },
+        {
+            {0,1,0,0,0,0,1},//ど
+            {0,1,0,1,1,0,0},
+            {0,1,1,0,0,0,1},
+            {1,0,0,0,0,0,0},
+            {1,0,0,0,0,0,0},
+            {0,1,1,1,1,0,0}
         },
         {
             {0,0,0,1,0,1,0},//な
@@ -839,12 +938,44 @@ struct Japanese
             {0,1,0,1,1,0,0}
         },
         {
+            {0,1,0,1,0,0,1},//ば
+            {1,0,1,1,1,0,0},
+            {1,0,0,1,0,0,1},
+            {1,0,0,1,0,0,0},
+            {1,0,1,1,1,0,0},
+            {0,0,1,1,0,0,0}
+        },
+        {
+            {0,1,0,1,0,1,1},//ぱ
+            {1,0,1,1,1,1,1},
+            {1,0,0,1,0,0,0},
+            {1,0,0,1,0,0,0},
+            {1,0,1,1,1,0,0},
+            {0,0,1,1,0,0,0}
+        },
+        {
             {1,1,1,0,1,0,0},//ひ
             {0,1,0,0,1,1,0},
             {1,0,0,0,1,0,1},
             {1,0,0,0,0,1,0},
             {0,1,0,0,0,1,0},
             {0,0,1,1,1,0,0}
+        },
+        {
+            {0,0,0,0,0,1,0},//び
+            {1,1,1,0,0,0,0},
+            {0,1,0,1,0,1,0},
+            {1,0,0,1,1,0,0},
+            {1,0,0,1,0,0,0},
+            {0,1,1,0,0,0,0}
+        },
+        {
+            {0,0,0,0,0,1,1},//ぴ
+            {1,1,1,0,0,1,1},
+            {0,1,0,1,0,0,0},
+            {1,0,0,1,1,0,0},
+            {1,0,0,1,0,0,0},
+            {0,1,1,0,0,0,0}
         },
         {
             {1,1,1,1,0,0,0},//ふ
@@ -1339,12 +1470,12 @@ struct Japanese
             {1,1,1,1,1,1,1}
         },
         {
-            {0,0,0,0,0,1,0},//ん
+            {0,0,0,0,0,0,0},//ン
+            {0,1,1,0,0,0,0},
+            {0,0,0,1,0,0,1},
+            {0,0,0,0,0,1,0},
             {0,0,0,0,1,0,0},
-            {0,0,0,1,0,0,0},
-            {0,0,1,1,1,0,0},
-            {0,1,0,0,1,0,1},
-            {1,0,0,0,0,1,0}
+            {1,1,1,1,0,0,0}
         },
    };
 
@@ -1694,6 +1825,7 @@ struct Japanese
                 else {
                     drawKana(katakana[43],6,7,x,y,px);
                 };
+                break;
         case 44:
             if(lower == true){
                     drawKana(hiragana[44],6,7,x,y,px);
@@ -1702,21 +1834,189 @@ struct Japanese
                     drawKana(katakana[44],6,7,x,y,px);
                 };
             break;
-        // case 45:
-        //     if(lower == true){
-        //             drawKana(hiragana[45],6,7,x,y,px);
-        //         }
-        //         else {
-        //             drawKana(katakana[45],6,7,x,y,px);
-        //         };
-        //     break;
-            // case 46:
-            // if(lower == true){
-            //         drawKana(hiragana[46],6,7,x,y,px);
-            //     }
-            //     else {
-            //         drawKana(katakana[45],6,7,x,y,px);
-            //     };
+        case 45:
+            if(lower == true){
+                    drawKana(hiragana[45],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[45],6,7,x,y,px);
+                };
+            break;
+        case 46:
+            if(lower == true){
+                    drawKana(hiragana[46],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[46],6,7,x,y,px);
+                };
+            break;
+        case 47:
+            if(lower == true){
+                    drawKana(hiragana[47],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[47],6,7,x,y,px);
+                };
+            break;
+        case 48:
+            if(lower == true){
+                    drawKana(hiragana[48],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[48],6,7,x,y,px);
+                };
+            break;
+        case 49:
+            if(lower == true){
+                    drawKana(hiragana[49],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[49],6,7,x,y,px);
+                };
+            break;
+        case 50:
+            if(lower == true){
+                    drawKana(hiragana[50],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[50],6,7,x,y,px);
+                };
+            break;
+        case 51:
+            if(lower == true){
+                    drawKana(hiragana[51],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[51],6,7,x,y,px);
+                };
+            break;
+        case 52:
+            if(lower == true){
+                    drawKana(hiragana[52],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[52],6,7,x,y,px);
+                };
+            break;
+        case 53:
+            if(lower == true){
+                    drawKana(hiragana[53],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[53],6,7,x,y,px);
+                };
+            break;
+        case 54:
+            if(lower == true){
+                    drawKana(hiragana[54],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[54],6,7,x,y,px);
+                };
+            break;
+        case 55:
+            if(lower == true){
+                    drawKana(hiragana[55],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[55],6,7,x,y,px);
+                };
+            break;
+        case 56:
+            if(lower == true){
+                    drawKana(hiragana[56],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[56],6,7,x,y,px);
+                };
+            break;
+        case 57:
+            if(lower == true){
+                    drawKana(hiragana[57],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[57],6,7,x,y,px);
+                };
+            break;
+        case 58:
+            if(lower == true){
+                    drawKana(hiragana[58],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[58],6,7,x,y,px);
+                };
+            break;
+        case 59:
+            if(lower == true){
+                    drawKana(hiragana[59],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[59],6,7,x,y,px);
+                };
+            break;
+        case 60:
+            if(lower == true){
+                    drawKana(hiragana[60],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[60],6,7,x,y,px);
+                };
+            break;
+        case 61:
+            if(lower == true){
+                    drawKana(hiragana[61],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[61],6,7,x,y,px);
+                };
+            break;
+        case 62:
+            if(lower == true){
+                    drawKana(hiragana[62],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[62],6,7,x,y,px);
+                };
+            break;
+        case 63:
+            if(lower == true){
+                    drawKana(hiragana[63],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[63],6,7,x,y,px);
+                };
+            break;
+        case 64:
+            if(lower == true){
+                    drawKana(hiragana[64],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[64],6,7,x,y,px);
+                };
+                break;
+        case 65:
+            if(lower == true){
+                    drawKana(hiragana[65],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[65],6,7,x,y,px);
+                };
+            break;
+        case 66:
+            if(lower == true){
+                    drawKana(hiragana[66],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[66],6,7,x,y,px);
+                };
+            break;
+            case 67:
+            if(lower == true){
+                    drawKana(hiragana[67],6,7,x,y,px);
+                }
+                else {
+                    drawKana(katakana[67],6,7,x,y,px);
+                };
             break;
         default:
         break;

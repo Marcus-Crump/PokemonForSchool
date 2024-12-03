@@ -82,7 +82,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
         QueryPerformanceFrequency(&perf);
         performanceFreq = (float)perf.QuadPart;
     }
-
+    
     while (running) {
         //Input
         MSG message;

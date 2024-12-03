@@ -11,7 +11,7 @@ float pHSx = 2.5, pHSy = 2.5;
 int choice = 0;
 int timer = 0;
 int cycle = 0;
-int direction = 3;
+int direction = 2;
 unsigned int color = 0x0ff00f;
 Player satoshi;
 Alphabet letter;
@@ -22,11 +22,13 @@ simulateGame(Input* input, float dt) {
 
 if (popUp.isOpen() == false) {
     if (isDown(BUTTON_8)) {
-        accely += 1350;
+        accely += 1300;
+        direction = 0;
         timer++;
     }
     if (isDown(BUTTON_5)) {
-        accely -= 1350;
+        accely -= 1300;
+        direction = 2;
         timer++;
     }
     accely -= vely * 10.f;
@@ -35,11 +37,13 @@ if (popUp.isOpen() == false) {
     satoshi.setYpos(posy);
 
     if (isDown(BUTTON_4)) {
-        accelx -= 1350;
+        accelx -= 1300;
+        direction = 1;
         timer++;
     }
     if (isDown(BUTTON_6)) {
-        accelx += 1350;
+        accelx += 1300;
+        direction = 3;
         timer++;
     }
 
@@ -48,10 +52,10 @@ if (popUp.isOpen() == false) {
         timer = 0;
       if (cycle > 3) {
         cycle = 0;
-    }  
     }
-    
-    
+    }
+
+
 
     accelx -= velx *10.f;
     velx += accelx*dt;
@@ -84,9 +88,19 @@ if (popUp.isOpen() == false) {
             popUp.toggleMenu();
         }
     }
-    if (released(BUTTON_8) || released(BUTTON_5) || released(BUTTON_4) || released(BUTTON_6)) {
+    if (released(BUTTON_8)  || released(BUTTON_4) || released(BUTTON_6)) {
         cycle = 0;
+        accelx = 0;
+        accely = 0;
+        velx = 0;
+        vely = 0;
     }
+    if (released(BUTTON_5)) {
+        cycle = 0;
+        accelx = 0;
+        accely = 0;
+        velx = 0;
+        vely = 0;}
 
 }else {
     if (isPressed(BUTTON_8)) {
@@ -145,9 +159,9 @@ if (popUp.isOpen() == false) {
     drawRect(80, 30, 10,10,0x00ff00);
     drawRect(-80, -30, 10,10,0x0000ff);
     drawRect(80, -30, 10,10,0xff00ff);
-    satoshi.drawPlayer(posx,posy,cycle);
+    satoshi.drawPlayer(posx,posy,cycle,direction);
     Japanese kana;
-    
+
     for (int i = 0; i < 46; i++){
     kana.printKana(i,true,-95+(float(i)*3.75),45,.25);
     kana.printKana(i,false,-95+(float(i)*3.75),30,.25);
@@ -157,3 +171,6 @@ if (popUp.isOpen() == false) {
         popUp.drawMenu(choice);
     }
 }
+
+
+

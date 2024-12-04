@@ -1,5 +1,5 @@
 #include <vector>
-// #include <iostream>
+
 
 class Text {
     public:Text(std::string line, float x, float y, float px) {
@@ -46,8 +46,8 @@ struct Menu
 
     void drawMenu(int selected) {
 
-        // int titles[][4] ={{13,6,45},{}};
-        std::string titles[7] = {"pokedex","pokemon","bag","player","save","settings","exit"};
+        int titles[][4] ={{21,6,63,0},{}};
+        std::string tags[7] = {"pokedex","pokemon","bag","player","save","settings","exit"};
         int kanaType [] = {true,false,false,false,false,true,true};
         drawRect(loc[0], loc[1], (width/2)+1, (length/2)+1, 0x050047);
         drawRect(loc[0], loc[1], (width/2)+.5, (length/2)+.5, 0x7bbfff);
@@ -61,8 +61,13 @@ struct Menu
             }else {
         drawRect(loc[0], (loc[1]+30)-(i*10), (cellLen/2)+1, (cellHigh/2)+1, 0xa6baca);
             }
-        Text line(titles[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
-        // printer.printKana();
+        if (i != 0) {
+        Text line(tags[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
+        }else {
+            for (int j = 0; j<4;j++){
+        printer.printKana(titles[0][j],kanaType[0],(loc[1]+31.5)+(j*3),loc[0]-20,.2);
+            }
+        }
         counter++;
         }
     }

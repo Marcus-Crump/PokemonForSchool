@@ -161,13 +161,15 @@ if (popUp.isOpen() == false) {
     satoshi.drawPlayer(posx,posy,cycle,direction);
     Japanese kana;
     int y = 45;
-    int x = -95;
-    for (int i = 0; i < 64; i++){
-    kana.printKana(i,true,-95+(float((i))*3.75),y,.25);
-    if(i < 46) {
-        kana.printKana(i,false,-95+(float((i))*3.75),y-10,.25);
+    int x = -80;
+    for (int i = 0; i < 70; i++){
+    kana.printKana(i,true,x,y,.10);
+    if((i+1)%6==0) {
+        y -= 5;
+        x = -80;
+    }else {
+x = -80 + (float((i+1)%6)*4);
     }
-    
     }
     if (popUp.isOpen() == true)
     {

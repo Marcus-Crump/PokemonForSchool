@@ -4,16 +4,6 @@
 #include <math.h>
 
 
-/*internal void
-renderBackground () {
-    unsigned int* pixel = (unsigned int*)renderState.memory;
-        for (int y = 0; y < renderState.height; y++) {
-            for (int x = 0; x < renderState.width; x++) {
-                *pixel++ = 0xff00ff*x + 0x00ff00*y;
-            }
-        }
-}*/
-
 internal void
 clearScreen(unsigned int color) {
     unsigned int* pixel = (unsigned int*)renderState.memory;

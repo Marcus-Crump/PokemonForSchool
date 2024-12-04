@@ -65,7 +65,7 @@ struct Menu
         Text line(tags[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
         }else {
             for (int j = 0; j<4;j++){
-        printer.printKana(titles[0][j],kanaType[0],(loc[1]+31.5)+(j*3),loc[0]-20,.2);
+        printer.printKana(titles[0][j],kanaType[0],(loc[1]+31.5)+(j*4.2),loc[0]-18.5,.30);
             }
         }
         counter++;

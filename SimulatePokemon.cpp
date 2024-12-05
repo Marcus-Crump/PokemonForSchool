@@ -16,22 +16,21 @@ int direction = 2;
 unsigned int color = 0x0ff00f;
 floorTiles ground;
 backWall wall;
+doormat carpet;
 Player satoshi;
 Alphabet letter;
+chair chairs;
 Menu popUp;
 internal void
 simulateGame(Input* input, float dt) {
     float accely, accelx = 0.f;
-    // for (int i = 35; i<35*5; i -=16) {
-    //     for (int j = -100; j < 100; j += 16) {
-
-    //     }
-    // }
-    // ground.printTile(-100,35,1);
-    // ground.printTile(-84,35,1);
-    // ground.printTile(-68,35,1);
-    // ground.printTile(-52,35,1);
-wall.printWall();
+    ground.printFloor();
+    carpet.makeCarpet(-11,-42.5);
+    wall.printWall();
+    chairs.printChair(-37.5,35);
+    chairs.printChair(-37.5,47.5);
+    chairs.printChair(-12.5,35);
+    chairs.printChair(-12.5,47.5);
 
 if (popUp.isOpen() == false) {
     if (isDown(BUTTON_8)) {
@@ -81,11 +80,11 @@ if (popUp.isOpen() == false) {
         posx = -arenaHSx + pHSx + 2*(1.75);
         velx *= 0;
     }
-    else if(posy + pHSy + 1.75 > arenaHSy) {
-        posy = arenaHSy - pHSy - 1.75;
+    else if(posy + pHSy + 4 > arenaHSy) {
+        posy = arenaHSy - pHSy - 4 ;
         vely *= 0;
-    }else if(posy - pHSy - 9.05*(1.75)< -arenaHSy) {
-        posy = -arenaHSy + pHSy + 9.05*(1.75);
+    }else if(posy - pHSy - 8.5 < -arenaHSy) {
+        posy = -arenaHSy + pHSy + 8.5;
         vely *= 0;
     }
     if (isPressed(BUTTON_9)) {

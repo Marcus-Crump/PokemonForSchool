@@ -21,8 +21,8 @@ struct floorTiles
         {2,1,1,1,1,1,1,2,2,1,1,1,1,1,1,2},
     };
 
-    public:void printTile(float x, float y, float px) {
-        // float y0 = y;
+    void printTile(float x, float y, float px) {
+        float y0 = y;
     for (int i = 0; i < 16; i++){
         float x0 = x;
         for (int j = 0; j < 16; j++) {
@@ -33,21 +33,73 @@ struct floorTiles
         y += px;
     }
     }
+
+    public:void printFloor() {
+        for (int y = 35; y > (-16)*7; y-=16) {
+            for (int x = -95; x <(16)*11; x +=16) {
+                printTile(x,y-.5,1);
+            }
+        }
+    }
 };
 
-struct doormat
+struct doormat//l = 32, w = 12
 {
-    /* data */
+    int colors[3] = {0xff001f,0xff9ed3,0xffffff};
+    int pattern[15] = {2,0,1,0,0,0,0,0,0,0,0,0,1,0,2};
+
+    public:void makeCarpet(float x, float y) {
+        float x0 = x - 16;
+        float y0 = y + (15/2);
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j < 15; j++) {
+                drawRect(x0+i,y0-j,.5,.5,colors[pattern[j]]);
+            }
+        }
+    }
 };
 
-struct chair
-{
-    /* data */
+struct chair//16x16
+{//0xd3b01b
+    int colors[4] = {0,0xffff63,0xf37f10,0x392e10};
+    int chair [16][16] = {
+        {0,0,3,3,3,3,3,3,3,3,3,3,3,3,0,0},
+        {0,3,2,1,1,1,1,1,1,1,1,1,1,2,3,0},
+        {3,2,1,1,1,1,1,1,1,1,1,1,1,1,2,3},
+        {3,2,1,1,1,1,1,1,1,1,1,1,1,1,2,3},
+        {3,2,1,1,1,1,1,1,2,1,1,1,1,1,2,3},
+        {3,2,1,1,1,1,2,2,2,2,1,1,1,1,2,3},
+        {3,2,1,1,1,1,1,2,1,1,1,1,1,1,2,3},
+        {3,2,1,1,1,1,1,1,1,1,1,1,1,1,2,3},
+        {3,2,1,1,1,1,1,1,1,1,1,1,1,1,2,3},
+        {3,2,2,1,1,1,1,1,1,1,1,1,1,2,2,3},
+        {3,2,2,2,1,1,1,1,1,1,1,1,2,2,2,3},
+        {3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3},
+        {3,3,2,2,2,3,3,3,3,3,3,2,2,2,3,3},
+        {3,1,3,3,3,2,3,3,3,3,2,3,3,3,2,3},
+        {0,3,1,2,2,3,3,3,3,3,3,2,2,2,3,0},
+        {0,0,3,3,3,0,0,0,0,0,0,3,3,3,0,0}
+    };
+
+    public:void printChair(float y, float x) {
+        float y0 = y;
+        for (int i=0; i<16; i++) {
+            float x0 = x;
+            for (int j =0; j<16; j++) {
+                if (chair[i][j] != 0){
+                drawRect(x0,y0,.4,.4,colors[chair[i][j]]);
+                }
+                x0 += .8;
+            }
+        y0 -= .8;
+        }
+    }
 };
 
 struct pokePC
-{
-    /* data */
+{                    //black   shading  pc color  grey
+    int colors[4] = {0x343233, 0x666261, 0xf9f3e7, 0x646d68};
+    
 };
 
 struct stairs
@@ -65,7 +117,7 @@ struct PCboy
     /* data */
 };
 
-struct chairsBoy
+struct chairBoy
 {
     /* data */
 };

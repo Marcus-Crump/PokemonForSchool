@@ -31,7 +31,6 @@ struct Menu
     float loc[2] = {50,0};
     float cellLen = 45.f;
     float cellHigh = 5.f;
-
     void toggleMenu() {
         if (open == true) {
             open = false;
@@ -46,9 +45,25 @@ struct Menu
 
     void drawMenu(int selected) {
 
-        int titles[][4] ={{21,6,63,0},{}};
+        int titles[][5] ={
+            {21,6,69,0},
+            {49,12,60,69,0},
+            {42,11,0,0,0},
+            {49,64,2,66,70},
+            {22,70,48,0,0},
+            {22,30,32,2,0},
+            {18,59,63,0,0}};
         std::string tags[7] = {"pokedex","pokemon","bag","player","save","settings","exit"};
-        int kanaType [] = {true,false,false,false,false,true,true};
+        int kanaType[] = {true,false,false,false,false,true,true};
+        int small[][5] = {
+            {false,false,false,false,false},
+            {false,false,false,false,false},
+            {false,false,false,false,false},
+            {false,false,false,false,false},
+            {false,false,false,false,false},
+            {false,true,false,false,false},
+            {false,false,false,false,false},            
+        };
         drawRect(loc[0], loc[1], (width/2)+1, (length/2)+1, 0x050047);
         drawRect(loc[0], loc[1], (width/2)+.5, (length/2)+.5, 0x7bbfff);
         drawRect(loc[0], loc[1], (width/2)-1, (length/2)-1, 0xa6baca);
@@ -61,13 +76,20 @@ struct Menu
             }else {
         drawRect(loc[0], (loc[1]+30)-(i*10), (cellLen/2)+1, (cellHigh/2)+1, 0xa6baca);
             }
-        if (i != 0) {
-        Text line(tags[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
-        }else {
-            for (int j = 0; j<4;j++){
-        printer.printKana(titles[0][j],kanaType[0],(loc[1]+31.5)+(j*4.2),loc[0]-18.5,.30);
+        // if (i != 0) {
+        // Text line(tags[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
+        // }else {
+            for (int j = 0; j<5;j++){
+                if (titles[i][j] != 0){
+                    if (small[i][j] != true) {
+                        printer.printKana(titles[i][j],kanaType[i],(loc[1]+31.5)+(j*4.5),(loc[0]-18.5)-(10*i),.30);
+
+                    }else {
+                        printer.printKana(titles[i][j],kanaType[i],(loc[1]+31.5)+(j*4.5)+.75,(loc[0]-18.5)-(10*i)-1,.20);
+                    }
+                }
             }
-        }
+        // }
         counter++;
         }
     }

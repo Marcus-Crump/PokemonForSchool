@@ -1,5 +1,6 @@
 #include "sprites.cpp"
 #include "events.cpp"
+#include "PokeCenter.cpp"
 #include <cstdio>
 #define isDown(b) input->buttons[b].isDown
 #define isPressed(b) (input->buttons[b].isDown && input->buttons[b].changed)
@@ -13,21 +14,33 @@ int timer = 0;
 int cycle = 0;
 int direction = 2;
 unsigned int color = 0x0ff00f;
+floorTiles ground;
+backWall wall;
 Player satoshi;
 Alphabet letter;
 Menu popUp;
 internal void
 simulateGame(Input* input, float dt) {
     float accely, accelx = 0.f;
+    // for (int i = 35; i<35*5; i -=16) {
+    //     for (int j = -100; j < 100; j += 16) {
+
+    //     }
+    // }
+    // ground.printTile(-100,35,1);
+    // ground.printTile(-84,35,1);
+    // ground.printTile(-68,35,1);
+    // ground.printTile(-52,35,1);
+wall.printWall();
 
 if (popUp.isOpen() == false) {
     if (isDown(BUTTON_8)) {
-        accely += 1300;
+        accely += 750;
         direction = 0;
         timer++;
     }
     if (isDown(BUTTON_5)) {
-        accely -= 1300;
+        accely -= 750;
         direction = 2;
         timer++;
     }
@@ -36,12 +49,12 @@ if (popUp.isOpen() == false) {
     posy += vely * dt + accely *dt *dt * .5f;
 
     if (isDown(BUTTON_4)) {
-        accelx -= 1300;
+        accelx -= 750;
         direction = 1;
         timer++;
     }
     if (isDown(BUTTON_6)) {
-        accelx += 1300;
+        accelx += 750;
         direction = 3;
         timer++;
     }
@@ -154,23 +167,8 @@ if (popUp.isOpen() == false) {
         }
     }
     }
-    drawRect(-80, 30, 10,10,0xffff00);
-    drawRect(80, 30, 10,10,0x00ff00);
-    drawRect(-80, -30, 10,10,0x0000ff);
-    drawRect(80, -30, 10,10,0xff00ff);
     satoshi.drawPlayer(posx,posy,cycle,direction);
-    Japanese kana;
-    int y = 45;
-    int x = -80;
-    for (int i = 0; i < 70; i++){
-    kana.printKana(i,true,x,y,.10);
-    if((i+1)%6==0) {
-        y -= 5;
-        x = -80;
-    }else {
-x = -80 + (float((i+1)%6)*4);
-    }
-    }
+
     if (popUp.isOpen() == true)
     {
         popUp.drawMenu(choice);

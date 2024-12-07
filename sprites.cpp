@@ -4,7 +4,7 @@ struct Player
 {
     public:float xPOS;
     public:float yPOS;
-    float pxSize = .0005;
+    float pxSize = 1;
     public:int colors[5] ={0,0xff2e00,0xffa759,0x000000,0xffffff};
     public:int sprite [3][4][16][14] = {
         {
@@ -232,42 +232,42 @@ struct Player
     };
 
     void drawPlayer(int posX, int posY, int cycle,int dir){
-    yPOS = posY + ((16 / 2)*pxSize) - (pxSize/2);
+    yPOS = posY + 8;
     if (dir == 1) {
         for(int i = 0; i < 16; i++) {
-        xPOS = posX - ((14 / 2)*pxSize);
+        xPOS = posX - 8;
         for(int j = 0; j < 14; j++) {
             if(sprite[1][cycle][i][j] != 0) {
                 int color = sprite[1][cycle][i][j];
-                drawRect(xPOS+(10), yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
+                drawRect(xPOS+(10), yPOS, 0.50, 0.50,colors[color]);
             }
-            xPOS -= pxSize*1500.;
+            xPOS --;
         }
-        yPOS -= pxSize*1500.;
+        yPOS --;
         }
         }else if (dir == 3) {
             for(int i = 0; i < 16; i++) {
-                xPOS = posX - ((14 / 2)*pxSize);
+                xPOS = posX - 8;
                 for(int j = 0; j < 14; j++) {
                     if(sprite[1][cycle][i][j] != 0) {
                         int color = sprite[1][cycle][i][j];
-                        drawRect(xPOS, yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
+                        drawRect(xPOS, yPOS, 0.50, 0.50,colors[color]);
                     }
-                    xPOS += pxSize*1500.;
+                    xPOS ++;
                 }
-                yPOS -= pxSize*1500.;
+                yPOS --;
                 }
     }else {
         for(int i = 0; i < 16; i++) {
-            xPOS = posX - ((14 / 2)*pxSize);
+            xPOS = posX - 8;
             for(int j = 0; j < 14; j++) {
                 if(sprite[dir][cycle][i][j] != 0) {
                     int color = sprite[dir][cycle][i][j];
-                    drawRect(xPOS, yPOS, (pxSize/2) + 0.50, (pxSize/2) + 0.50,colors[color]);
+                    drawRect(xPOS, yPOS, 0.50, 0.50,colors[color]);
                 }
-                xPOS += pxSize*1500.;
+                xPOS ++;
             }
-            yPOS -= pxSize*1500.;
+            yPOS --;
             }
     }
 

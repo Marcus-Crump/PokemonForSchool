@@ -67,7 +67,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
     //Register Class
     RegisterClass(&window_class);
     //Create Window
-    HWND window = CreateWindow(window_class.lpszClassName, "Pokemon??", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720, 0,0 , hInstance, 0);
+    HWND window = CreateWindow(window_class.lpszClassName, "Pokemon??", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 1920, 1080, 0,0 , hInstance, 0);
     HDC hdc = GetDC(window);
 
     Input input = {};
@@ -82,7 +82,7 @@ int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int n
         QueryPerformanceFrequency(&perf);
         performanceFreq = (float)perf.QuadPart;
     }
-    
+
     while (running) {
         //Input
         MSG message;
@@ -123,7 +123,7 @@ input.buttons[b].isDown = isDown;\
 
         }
         //Simulate
-        clearScreen(0xffffff);
+        clearScreen(0);
 
         simulateGame(&input, deltaT);
 

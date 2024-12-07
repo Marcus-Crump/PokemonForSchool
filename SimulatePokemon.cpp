@@ -20,17 +20,32 @@ doormat carpet;
 Player satoshi;
 Alphabet letter;
 chair chairs;
+pokePC pc;
+deskFront frontDesk;
 Menu popUp;
+bowlThing ball;
+DeskSide sideDesk;
+nurseJoy joy;
+PokehealerPC right;
 internal void
 simulateGame(Input* input, float dt) {
     float accely, accelx = 0.f;
     ground.printFloor();
-    carpet.makeCarpet(-11,-42.5);
+    ground.printShadowFloor(26,-97.5,15);
+    ground.printShadowFloor(-6,-105.5,8);
+    ground.printShadowFloor(14,82.5,1);
     wall.printWall();
+    carpet.makeCarpet(-11,-42.5);
     chairs.printChair(-37.5,35);
     chairs.printChair(-37.5,47.5);
     chairs.printChair(-12.5,35);
     chairs.printChair(-12.5,47.5);
+    joy.printNurseJoy(-28,40);
+    pc.printPC();
+    right.printPokeHealerRight(-45,50);
+    frontDesk.printDesk();
+    sideDesk.drawDeskSide(5,45);
+    ball.printBowls();
 
 if (popUp.isOpen() == false) {
     if (isDown(BUTTON_8)) {
@@ -58,7 +73,7 @@ if (popUp.isOpen() == false) {
         timer++;
     }
 
-    if (timer > 100){
+    if (timer > 20){
         cycle++;
         timer = 0;
       if (cycle > 3) {
@@ -72,21 +87,50 @@ if (popUp.isOpen() == false) {
     velx += accelx*dt;
     posx += velx * dt + accelx*dt*dt * .5f;
 
-    if(posx + pHSx + 9*(1.75) > arenaHSx) {
-        posx = arenaHSx - pHSx -9*(1.75);
+    if(posx + pHSx  > arenaHSx) {
+        posx = arenaHSx - pHSx ;
         velx *= 0;
+    }else if(posx + pHSx  > arenaHSx-14){//PC x len
+        if(posy + pHSy + 9 > arenaHSy-12){//PC y len
+            posy = arenaHSy - pHSy - 21 ;
+            vely *= 0;
+        }else if(posy - pHSy - 4.5 < -arenaHSy) {
+        posy = -arenaHSy + pHSy + 4.5;
+        vely *= 0;
+        }
     }
-    else if(posx - pHSx -2*(1.75)< -arenaHSx) {
-        posx = -arenaHSx + pHSx + 2*(1.75);
+    else if(posx - pHSx - 6 < -arenaHSx) {
+        posx = -arenaHSx + pHSx + 6;
         velx *= 0;
-    }
-    else if(posy + pHSy + 4 > arenaHSy) {
-        posy = arenaHSy - pHSy - 4 ;
+    }else if(posx - pHSx - 6 < -arenaHSx + 118) {//Desk X len
+        if(posy + pHSy + 9 > arenaHSy-30){//desk y len
+            posy = arenaHSy - pHSy - 39 ;
+            vely *= 0;
+        }else if(posy - pHSy - 4.5 < -arenaHSy) {
+        posy = -arenaHSy + pHSy + 4.5;
         vely *= 0;
-    }else if(posy - pHSy - 8.5 < -arenaHSy) {
-        posy = -arenaHSy + pHSy + 8.5;
+        }
+    }else if(posy + pHSy + 9 > arenaHSy) {
+        posy = arenaHSy - pHSy - 9 ;
+        vely *= 0;
+    }else if (posy + pHSy + 9 > arenaHSy - 30) {//Desk y len
+        if (posy + pHSy + 9 > arenaHSy-14) { //PC y len
+            if (posx + pHSx > arenaHSx - 15) {//pc x len
+                posx = arenaHSx - pHSx - 15;
+                velx *= 0;
+            }
+        }
+        if (posx - pHSx - 6 < -arenaHSx + 120) {//desk x len
+            posx = -arenaHSx + pHSx + 126;
+            velx *= 0;
+        }
+
+    }
+    else if(posy - pHSy - 4.5 < -arenaHSy) {
+        posy = -arenaHSy + pHSy + 4.5;
         vely *= 0;
     }
+
     if (isPressed(BUTTON_9)) {
         popUp.toggleMenu();
     }
@@ -151,6 +195,7 @@ if (popUp.isOpen() == false) {
             break;
         case 6:
             popUp.toggleMenu();
+            choice = 0;
             break;
         default:
             break;
@@ -163,6 +208,7 @@ if (popUp.isOpen() == false) {
         if (popUp.isOpen() == true)
         {
             popUp.toggleMenu();
+            choice = 0;
         }
     }
     }

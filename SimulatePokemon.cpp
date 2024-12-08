@@ -26,8 +26,13 @@ Menu popUp;
 bowlThing ball;
 DeskSide sideDesk;
 nurseJoy joy;
+PCboy boy1;
 PokehealerPC right;
-internal void
+PokeHealer healer;
+TextBox textOutput;
+
+bool displayTextBox = false;
+internal int
 simulateGame(Input* input, float dt) {
     float accely, accelx = 0.f;
     ground.printFloor();
@@ -40,14 +45,16 @@ simulateGame(Input* input, float dt) {
     chairs.printChair(-37.5,47.5);
     chairs.printChair(-12.5,35);
     chairs.printChair(-12.5,47.5);
-    joy.printNurseJoy(-28,40);
+    joy.printNurseJoy(-35.5,36.5);
     pc.printPC();
-    right.printPokeHealerRight(-45,50);
+    right.printPokeHealerRight(-63,50);
+    healer.printPokeHealer(-95,51);
     frontDesk.printDesk();
-    sideDesk.drawDeskSide(5,45);
+    sideDesk.drawDeskSide(4.5,45);
     ball.printBowls();
-
-if (popUp.isOpen() == false) {
+    boy1.printBoySprite(67,37,0);
+    
+if (popUp.isOpen() == false && !displayTextBox) {
     if (isDown(BUTTON_8)) {
         accely += 750;
         direction = 0;
@@ -90,7 +97,7 @@ if (popUp.isOpen() == false) {
     if(posx + pHSx  > arenaHSx) {
         posx = arenaHSx - pHSx ;
         velx *= 0;
-    }else if(posx + pHSx  > arenaHSx-14){//PC x len
+    }else if(posx + pHSx  > arenaHSx-30){//PC x len
         if(posy + pHSy + 9 > arenaHSy-12){//PC y len
             posy = arenaHSy - pHSy - 21 ;
             vely *= 0;
@@ -115,8 +122,8 @@ if (popUp.isOpen() == false) {
         vely *= 0;
     }else if (posy + pHSy + 9 > arenaHSy - 30) {//Desk y len
         if (posy + pHSy + 9 > arenaHSy-14) { //PC y len
-            if (posx + pHSx > arenaHSx - 15) {//pc x len
-                posx = arenaHSx - pHSx - 15;
+            if (posx + pHSx > arenaHSx - 32) {//pc x len
+                posx = arenaHSx - pHSx - 32;
                 velx *= 0;
             }
         }
@@ -129,6 +136,13 @@ if (popUp.isOpen() == false) {
     else if(posy - pHSy - 4.5 < -arenaHSy) {
         posy = -arenaHSy + pHSy + 4.5;
         vely *= 0;
+    }
+
+    if (posy == arenaHSy - pHSy - 39 &&
+        direction == 0 &&
+        posx > -29-6 && posx < -29+6
+        && isPressed(BUTTON_7)) {
+            displayTextBox = true;
     }
 
     if (isPressed(BUTTON_9)) {
@@ -157,7 +171,7 @@ if (popUp.isOpen() == false) {
         velx = 0;
         vely = 0;}
 
-}else {
+}else if (popUp.isOpen()){
     if (isPressed(BUTTON_8)) {
         if (choice <= 0) {
             choice = 6;
@@ -176,13 +190,13 @@ if (popUp.isOpen() == false) {
         switch (choice)
         {
         case 0:
-            /* code */
+            return 1;
             break;
         case 1:
-            /* code */
+            return 2;
             break;
         case 2:
-            /* code */
+            return 3;
             break;
         case 3:
             /* code */
@@ -211,6 +225,10 @@ if (popUp.isOpen() == false) {
             choice = 0;
         }
     }
+    }else {
+        if (isPressed(BUTTON_7) || isPressed(BUTTON_RETURN)) {
+            displayTextBox = false;
+        }
     }
     satoshi.drawPlayer(posx,posy,cycle,direction);
 
@@ -218,7 +236,22 @@ if (popUp.isOpen() == false) {
     {
         popUp.drawMenu(choice);
     }
+
+    if (displayTextBox == true) {
+        BallCorners corner;
+        textOutput.displayBox();
+        corner.printBall(-86,-18);
+        corner.printBall(86,-18);
+        corner.printBall(86,-22*2);
+        corner.printBall(-86,-22*2);
+    }
+
+    return 0;
 }
 
 
 
+internal void
+simulatePokedex(Input* input, float dt) {
+
+}

@@ -103,3 +103,41 @@ struct PokemonParty
 
 };
 
+struct BallCorners {
+    int colors[4] = {0,0,0xdf342a, 0xffffff};
+    int ball[7][8] = {
+        {0,0,0,3,3,0,0,0},
+        {0,0,3,1,1,3,0,0},
+        {0,3,1,3,2,1,3,0},
+        {3,1,2,2,2,2,1,3},
+        {0,3,1,3,3,1,3,0},
+        {0,0,3,1,1,3,0,0},
+        {0,0,0,3,3,0,0,0},
+    };
+    public:void printBall(float x, float y) {
+        float y0 = y + (.5*7);
+        for (int i = 0; i < 7; i++) {
+            float x0 = x-(.5*7);
+            for (int j = 0; j < 8; j++) {
+                if (ball[i][j] != 0) {
+                    drawRect(x0,y0,.5,.5,colors[ball[i][j]]);
+                }
+                x0++;
+            }
+            y0--;
+        }
+    }
+};
+
+struct TextBox
+{   int y = -30;
+    int width = 15;
+    int length = 88;
+    BallCorners corners;
+    public:void displayBox() {
+        drawRect(0,y,length,width,0);
+        drawRect(0,y,length-1,width-1,0xffffff);
+        drawRect(0,y,length-2,width-2,0);
+        drawRect(0,y,length-3,width-4,0xffffff);
+}
+};

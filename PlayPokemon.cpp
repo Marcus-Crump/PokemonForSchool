@@ -5,6 +5,8 @@
 #define global_variable static
 #define internal static
 
+// bool displayTextBox = false;
+
 global_variable bool running = true;
 
 struct RenderState {
@@ -125,8 +127,16 @@ input.buttons[b].isDown = isDown;\
         //Simulate
         clearScreen(0);
 
-        simulateGame(&input, deltaT);
-
+        // simulateGame(&input, deltaT);
+        switch (simulateGame(&input, deltaT))
+        {
+        case 1:
+            simulatePokedex(&input, deltaT);
+            break;
+        
+        default:
+            break;
+        }
 
 
 

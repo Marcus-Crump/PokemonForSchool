@@ -176,7 +176,30 @@ struct nurseJoy
         {0,0,0,1,1,1,1,1,1,1,1,0,0,0},
         {0,0,0,0,0,1,1,1,1,0,0,0,0,0}
     };
-
+    public:int lines = 5;
+    public:int script[5][27] = {
+        {14,69,37,28,41,-1,55,12,60,69,0,22,69,26,70,0,33,20},
+        {14,14,33,41,0,55,12,60,69,-2,40,-1,26,2,62,68,10,0,6,2,47,10,71,0,18,56,20},
+        {33,60,0,14,40,-2,13,70,58,-2,41,-1,33,60,0,27,12,33,20,68},
+        {53,6,40,0,34,10,28,68,3,40,-1,33,60,-2,71,0,57,63,26,59,37},
+        {59,37,67,70,71,-1,1,12,32,10,27,16,2}
+    };
+    public:bool state[5][6] = {
+        {true, false, false, true},
+        {true, false, true, true, true,true},
+        {true,true,false,true,false,true},
+        {true,true,false,true, true},
+        {false, true, true}
+    };
+    public:bool small[5][27] {
+        {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false},
+        {false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false},
+        {false,false,true,false,false,false,false,false,false,false,false,false,}
+    };
+    public:int len[5] = {18,27,20,21,13};
+    
     public:void printNurseJoy(float x, float y) {
         for (int i = 0; i < 16; i++) {
             float x0 = x;

@@ -91,14 +91,6 @@ struct Menu
     }
 };
 
-struct PokemonParty
-{
-    int size;
-    std::string names[6] = {};
-
-
-};
-
 struct BallCorners {
     int colors[4] = {0,0,0xdf342a, 0xffffff};
     int ball[7][8] = {
@@ -200,15 +192,46 @@ struct Pokedex
 struct Party
 {
     bool open = false;
+    int name[4] = {13,69,7,70};
+    int lv[3] = {1,0,0};
+    Japanese kana;
+    Alphabet let;
+    Numbers nums;
+    bool openPage = false;
+    int colors [5] = {0,0x670274,0xffffff,0xba3202,0};
+    int genar[10][14] = {
+        {0,1,1,0,0,1,0,0,1,0,0,1,1,0},
+        {0,1,1,1,1,1,1,1,1,1,1,1,1,0},
+        {0,0,1,1,2,4,1,1,4,2,1,1,0,0},
+        {0,1,1,1,2,2,1,1,2,2,1,1,1,0},
+        {0,1,1,1,1,1,1,1,1,1,1,1,1,0},
+        {1,1,1,2,2,3,2,2,3,2,2,1,1,1},
+        {1,1,1,1,2,3,2,2,3,2,1,1,1,1},
+        {0,1,1,1,1,3,2,2,3,1,1,1,1,0},
+        {0,0,1,1,1,1,1,1,1,1,1,1,0,0},
+        {0,0,0,1,1,0,0,0,0,1,1,0,0,0}
+
+    };
 
     public:bool isOpen() {
         return open;
+    }
+    bool isPage() {
+        return openPage;
     }
     public:void toggleParty() {
         if (isOpen()) {
             open = false;
         } else {
             open = true;
+        }
+    }
+
+    public:void togglePage() {
+        if (isPage()) {
+            openPage = false;
+        } else {
+            openPage = true;
         }
     }
     public:void displayParty(){
@@ -218,7 +241,59 @@ struct Party
         drawRect(0,0,46,46,0x9da9bd);
         drawRect(0,0,44,44,0x494f67);
         drawRect(0,0,42,42,0);
-        drawRect(0,0,41.75,41.75,0xb5471d);
+        drawRect(0,0,41.75,41.75,0xffffff);
+        if(!openPage) {
+        drawCell(1);
+
+        }else {
+            drawPage();
+        }
     }
+
+    void drawCell(int num) {
+        drawRect(0,30,40,7,0xffff00);
+        drawRect(16,29.7,17,1,0);
+        drawRect(-3,29.7,2,1,0xff0000);
+        drawRect(14,30,15,.75,0xffffff);
+        drawRect(14,30,15,.5,0x00ff00);
+        float y = 35;
+        for (int i = 0; i <10; i++) {
+            float x = -35;
+            for (int j = 0; j <14; j++) {
+                if (genar[i][j] != 0) {
+                    drawRect(x,y,.3,.3,colors[genar[i][j]]);
+                }
+                x += .45;
+            }
+            y -= .6;
+        }
+        for (int i = 0; i < 4; i++) {
+            kana.printKana(name[i],false,-20+(i*5),34,.25);
+        }
+        
+    }
+
+    public:void drawPage() {
+        clearScreen(0);
+        drawRect(0,0,47,47,0xffffff);
+        drawRect(0,0,46.5,46.5,0);
+        drawRect(0,0,46,46,0x9da9bd);
+        drawRect(0,0,44,44,0x494f67);
+        drawRect(0,0,42,42,0);
+        drawRect(0,0,41.75,41.75,0xffffff);
+        
+        float y = 35;
+        for (int i = 0; i <10; i++) {
+            float x = -35;
+            for (int j = 0; j <14; j++) {
+                if (genar[i][j] != 0) {
+                    drawRect(x,y,1,1,colors[genar[i][j]]);
+                }
+                x += 1.5;
+            }
+            y -= 2;
+        }
+    }
+
 };
 

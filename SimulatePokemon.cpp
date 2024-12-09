@@ -248,7 +248,14 @@ if (!popUp.isOpen() && !displayTextBox) {
         if (isPressed(BUTTON_RETURN)) {
             party.toggleParty();
             inPath = false;
+        }else if(isPressed(BUTTON_7)) {
+            if(party.openPage){
+                party.openPage = false;
+            } else {
+                party.openPage = true;
+            }
         }
+        
     }   
     }
     

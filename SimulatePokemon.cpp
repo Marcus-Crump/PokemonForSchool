@@ -30,9 +30,14 @@ PCboy boy1;
 PokehealerPC right;
 PokeHealer healer;
 TextBox textOutput;
-
+Pokedex dex;
+Party party;
+int returnVal = 0;
 bool displayTextBox = false;
-internal int
+bool inPath = false;
+
+int sl = 0;
+internal void
 simulateGame(Input* input, float dt) {
     float accely, accelx = 0.f;
     ground.printFloor();
@@ -53,8 +58,9 @@ simulateGame(Input* input, float dt) {
     sideDesk.drawDeskSide(4.5,45);
     ball.printBowls();
     boy1.printBoySprite(67,37,0);
-    
-if (popUp.isOpen() == false && !displayTextBox) {
+    satoshi.drawPlayer(posx,posy,cycle,direction);
+
+if (!popUp.isOpen() && !displayTextBox) {
     if (isDown(BUTTON_8)) {
         accely += 750;
         direction = 0;
@@ -172,7 +178,9 @@ if (popUp.isOpen() == false && !displayTextBox) {
         vely = 0;}
 
 }else if (popUp.isOpen()){
-    if (isPressed(BUTTON_8)) {
+    popUp.drawMenu(choice);
+    if(!inPath) {
+     if (isPressed(BUTTON_8)) {
         if (choice <= 0) {
             choice = 6;
         }else {
@@ -190,13 +198,15 @@ if (popUp.isOpen() == false && !displayTextBox) {
         switch (choice)
         {
         case 0:
-            return 1;
+            dex.toggleDex();
+            inPath = true;
             break;
         case 1:
-            return 2;
+            party.toggleParty();
+            inPath = true;
             break;
         case 2:
-            return 3;
+            /*code*/
             break;
         case 3:
             /* code */
@@ -210,48 +220,66 @@ if (popUp.isOpen() == false && !displayTextBox) {
         case 6:
             popUp.toggleMenu();
             choice = 0;
+            returnVal = 0;
             break;
         default:
             break;
         }
     }
-    if (isPressed(BUTTON_9)) {
+
+    if (isPressed(BUTTON_9)) {//close menu by hitting menu key
         popUp.toggleMenu();
     }
-    if(isDown(BUTTON_RETURN)) {
+    if(isDown(BUTTON_RETURN)) {//close menu by hitting "b" buttong
         if (popUp.isOpen() == true)
         {
             popUp.toggleMenu();
             choice = 0;
         }
     }
-    }else {
-        if (isPressed(BUTTON_7) || isPressed(BUTTON_RETURN)) {
-            displayTextBox = false;
+    }if (dex.isOpen()) {
+        dex.displayDex();
+        if (isPressed(BUTTON_RETURN)) {
+            dex.toggleDex();
+            inPath = false;
         }
+    }else if (party.isOpen() && inPath) {
+        party.displayParty();
+        if (isPressed(BUTTON_RETURN)) {
+            party.toggleParty();
+            inPath = false;
+        }
+    }   
     }
-    satoshi.drawPlayer(posx,posy,cycle,direction);
-
-    if (popUp.isOpen() == true)
-    {
-        popUp.drawMenu(choice);
-    }
-
+    
+    
+    
     if (displayTextBox == true) {
+        if (isPressed(BUTTON_RETURN) || sl >= joy.lines) {
+            displayTextBox = false;
+            sl = 0;
+        }else if (isPressed(BUTTON_7)) {
+            sl++;
+        }
         BallCorners corner;
-        textOutput.displayBox();
+        textOutput.displayBox(joy.script[sl],joy.state[sl],joy.small[sl],joy.len[sl]);
         corner.printBall(-86,-18);
         corner.printBall(86,-18);
         corner.printBall(86,-22*2);
         corner.printBall(-86,-22*2);
     }
 
-    return 0;
 }
 
 
 
-internal void
-simulatePokedex(Input* input, float dt) {
-
-}
+// internal int
+// simulatePokedex(Input* input, float dt) {
+//     clearScreen(0x000000);
+//     if(isPressed(BUTTON_RETURN)) {
+//         returnVal = 0;
+//         popUp.open = true;
+//         return returnVal;
+//     }
+//     return 1;
+// }

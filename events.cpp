@@ -27,7 +27,7 @@ struct Menu
     int width = 50;
     int length = 75;
     int color = 0xa7a7a7;
-    bool open = false;
+    public:bool open = false;
     float loc[2] = {50,0};
     float cellLen = 45.f;
     float cellHigh = 5.f;
@@ -76,9 +76,6 @@ struct Menu
             }else {
         drawRect(loc[0], (loc[1]+30)-(i*10), (cellLen/2)+1, (cellHigh/2)+1, 0xa6baca);
             }
-        // if (i != 0) {
-        // Text line(tags[counter],loc[0]-20, (loc[1]+31.5)-(i*10),.2);
-        // }else {
             for (int j = 0; j<5;j++){
                 if (titles[i][j] != 0){
                     if (small[i][j] != true) {
@@ -89,7 +86,6 @@ struct Menu
                     }
                 }
             }
-        // }
         counter++;
         }
     }
@@ -134,10 +130,95 @@ struct TextBox
     int width = 15;
     int length = 88;
     BallCorners corners;
-    public:void displayBox() {
+    Japanese kana;
+
+    public:void outputText(int script[], bool state[], bool small[], int len, float x, float y) {
+        int s = 0;
+        float x0 = x;
+        for (int i = 0; i < len; i++ ) {
+            if (script[i] == -2) {
+                s++;
+            }else if (script[i] == -1) {
+                x0 = x;
+                y-= 2*6.5;
+                s++;
+            }else if (script[i] == 0){
+                s++;
+                x0+= 4*2.5;
+            }else {
+                if (small[i]) {
+                    kana.printKana(script[i], state[s], x0-1, y-2.25,.5/2);
+                    x0+= 2*2;
+                }else {
+                    kana.printKana(script[i], state[s], x0, y,.5);
+                    x0+= 2*4;
+                }
+                
+            }
+        }
+    }
+
+    public:void displayBox(int script[], bool state[], bool small[], int len) {
         drawRect(0,y,length,width,0);
         drawRect(0,y,length-1,width-1,0xffffff);
         drawRect(0,y,length-2,width-2,0);
         drawRect(0,y,length-3,width-4,0xffffff);
+        outputText(script,state, small,len,(-1*length)+7,y+9);
 }
+
+
 };
+
+
+struct Pokedex
+{
+    bool open = false;
+
+    public:bool isOpen() {
+        return open;
+    }
+    public:void toggleDex() {
+        if (isOpen()) {
+            open = false;
+        } else {
+            open = true;
+        }
+    }
+    public:void displayDex(){
+        clearScreen(0);
+        drawRect(0,0,47,47,0xffffff);
+        drawRect(0,0,46.5,46.5,0);
+        drawRect(0,0,46,46,0x9da9bd);
+        drawRect(0,0,44,44,0x494f67);
+        drawRect(0,0,42,42,0);
+        drawRect(0,0,41.75,41.75,0xb5471d);
+
+
+    }
+};
+
+struct Party
+{
+    bool open = false;
+
+    public:bool isOpen() {
+        return open;
+    }
+    public:void toggleParty() {
+        if (isOpen()) {
+            open = false;
+        } else {
+            open = true;
+        }
+    }
+    public:void displayParty(){
+        clearScreen(0);
+        drawRect(0,0,47,47,0xffffff);
+        drawRect(0,0,46.5,46.5,0);
+        drawRect(0,0,46,46,0x9da9bd);
+        drawRect(0,0,44,44,0x494f67);
+        drawRect(0,0,42,42,0);
+        drawRect(0,0,41.75,41.75,0xb5471d);
+    }
+};
+

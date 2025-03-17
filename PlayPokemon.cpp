@@ -1,4 +1,3 @@
-//File loc: "C:\Users\marcu\The Archives\Computer Science\GitHub\Summer 24\C++\Draw Me"
 #include <windows.h>
 #include <iostream>
 

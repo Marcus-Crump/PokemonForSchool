@@ -248,19 +248,16 @@ if (!popUp.isOpen() && !displayTextBox) {
         if (isPressed(BUTTON_RETURN)) {
             party.toggleParty();
             inPath = false;
-        }else if(isPressed(BUTTON_7)) {
+        }else if(isPressed(BUTTON_9)) {
             if(party.openPage){
                 party.openPage = false;
             } else {
                 party.openPage = true;
             }
         }
-        
-    }   
     }
-    
-    
-    
+    }
+
     if (displayTextBox == true) {
         if (isPressed(BUTTON_RETURN) || sl >= joy.lines) {
             displayTextBox = false;
@@ -277,16 +274,3 @@ if (!popUp.isOpen() && !displayTextBox) {
     }
 
 }
-
-
-
-// internal int
-// simulatePokedex(Input* input, float dt) {
-//     clearScreen(0x000000);
-//     if(isPressed(BUTTON_RETURN)) {
-//         returnVal = 0;
-//         popUp.open = true;
-//         return returnVal;
-//     }
-//     return 1;
-// }

@@ -22,6 +22,7 @@ class Text {
         }
     }
 };
+
 struct Menu
 {
     int width = 50;
@@ -55,14 +56,14 @@ struct Menu
             {18,59,63,0,0}};
         std::string tags[7] = {"pokedex","pokemon","bag","player","save","settings","exit"};
         int kanaType[] = {true,false,false,false,false,true,true};
-        int small[][5] = {
+        int smoll[][5] = {
             {false,false,false,false,false},
             {false,false,false,false,false},
             {false,false,false,false,false},
             {false,false,false,false,false},
             {false,false,false,false,false},
             {false,true,false,false,false},
-            {false,false,false,false,false},            
+            {false,false,false,false,false},
         };
         drawRect(loc[0], loc[1], (width/2)+1, (length/2)+1, 0x050047);
         drawRect(loc[0], loc[1], (width/2)+.5, (length/2)+.5, 0x7bbfff);
@@ -78,7 +79,7 @@ struct Menu
             }
             for (int j = 0; j<5;j++){
                 if (titles[i][j] != 0){
-                    if (small[i][j] != true) {
+                    if (smoll[i][j] != true) {
                         printer.printKana(titles[i][j],kanaType[i],(loc[1]+31.5)+(j*4.5),(loc[0]-18.5)-(10*i),.30);
 
                     }else {
@@ -124,7 +125,7 @@ struct TextBox
     BallCorners corners;
     Japanese kana;
 
-    public:void outputText(int script[], bool state[], bool small[], int len, float x, float y) {
+    public:void outputText(int script[], bool state[], bool smoll[], int len, float x, float y) {
         int s = 0;
         float x0 = x;
         for (int i = 0; i < len; i++ ) {
@@ -138,24 +139,24 @@ struct TextBox
                 s++;
                 x0+= 4*2.5;
             }else {
-                if (small[i]) {
+                if (smoll[i]) {
                     kana.printKana(script[i], state[s], x0-1, y-2.25,.5/2);
                     x0+= 2*2;
                 }else {
                     kana.printKana(script[i], state[s], x0, y,.5);
                     x0+= 2*4;
                 }
-                
+
             }
         }
     }
 
-    public:void displayBox(int script[], bool state[], bool small[], int len) {
+    public:void displayBox(int script[], bool state[], bool smoll[], int len) {
         drawRect(0,y,length,width,0);
         drawRect(0,y,length-1,width-1,0xffffff);
         drawRect(0,y,length-2,width-2,0);
         drawRect(0,y,length-3,width-4,0xffffff);
-        outputText(script,state, small,len,(-1*length)+7,y+9);
+        outputText(script,state, smoll,len,(-1*length)+7,y+9);
 }
 
 
@@ -257,6 +258,7 @@ struct Party
         drawRect(14,30,15,.75,0xffffff);
         drawRect(14,30,15,.5,0x00ff00);
         float y = 35;
+        int lv[3] = {1,0,0};
         for (int i = 0; i <10; i++) {
             float x = -35;
             for (int j = 0; j <14; j++) {
@@ -270,7 +272,16 @@ struct Party
         for (int i = 0; i < 4; i++) {
             kana.printKana(name[i],false,-20+(i*5),34,.25);
         }
-        
+
+        for (int i = 0; i < 3; i++)
+        {
+            nums.printNum(lv[i],-8.5+(i),30.5,.15);
+        }
+        let.printLetter(11,-11,30.5,.15);
+        let.printLetter(21,-10,30.5,.15);
+
+
+
     }
 
     public:void drawPage() {
@@ -281,7 +292,23 @@ struct Party
         drawRect(0,0,44,44,0x494f67);
         drawRect(0,0,42,42,0);
         drawRect(0,0,41.75,41.75,0xffffff);
-        
+        int stats[5][4] = {
+            {14,3,13,8},
+            {54,8,68,3},
+            {34,10,14,3},
+            {34,10,54,3},
+            {20,42,66,16}
+        };
+        int theType [3][4] = {
+            {26,2,49},
+            {35,10},
+            {15,70,20,34}
+        };
+
+        for (int i = 0; i < 4; i++) {
+            kana.printKana(name[i],false,0+(i*+9),34,.5);
+        }
+
         float y = 35;
         for (int i = 0; i <10; i++) {
             float x = -35;
@@ -292,6 +319,40 @@ struct Party
                 x += 1.5;
             }
             y -= 2;
+        }
+        drawRect(16.75,-15,25,27,0);
+        drawRect(16.75,-15,25-1,27-1,0xffffff);
+        drawRect(16.75,-15,25-2,27-2,0);
+        drawRect(16.75,-15,25-3,27-4,0xffffff);
+        y = 5;
+        for (int i = 0; i < 5; i ++){
+            float x = -2;
+            for (int j = 0; j < 4; j++)
+            {
+             kana.printKana(stats[i][j],true,x,y,.4) ;
+             x+=6;
+            }
+            y-=8;
+        }
+        y = 5;
+        float x = -40;
+        for (int i = 0; i < 3; i ++) {
+            kana.printKana(theType[0][i],false,x,y,.4);
+            x+=6;
+        }
+
+        y= -5;
+        x = -40;
+        for (int i = 0; i < 2; i ++) {
+            kana.printKana(theType[1][i],false,x,y,.4);
+            x+=6;
+        }
+
+        y= -10;
+        x = -40;
+        for (int i = 0; i < 4; i ++) {
+            kana.printKana(theType[2][i],false,x,y,.4);
+            x+=6;
         }
     }
 

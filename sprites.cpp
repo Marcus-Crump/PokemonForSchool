@@ -1,4 +1,5 @@
 struct Pokemon
+//Will be implemented later
 {
     /* data */
 };
@@ -2436,10 +2437,10 @@ struct Numbers
         for (int i = 0; i < 10; i++) {
             float x0 = x;
             for (int j = 0; j < 6; j++) {
-                if(nums[num] != 0) {
-                drawRect(x,y,px/2,px/2,0);
+                if(nums[num][i][j] != 0) {
+                drawRect(x0,y,px/2,px/2,0);
                 }
-                x+=px;
+                x0+=px;
             }
             y-=px;
         }
